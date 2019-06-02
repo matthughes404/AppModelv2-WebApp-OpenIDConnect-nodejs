@@ -1,31 +1,31 @@
 exports.creds = {
   // Required
-  identityMetadata: 'https://login.microsoftonline.com/<tenant_name>.onmicrosoft.com/v2.0/.well-known/openid-configuration', 
+  identityMetadata: 'https://login.microsoftonline.com/<tenant_name>.onmicrosoft.com/v2.0/.well-known/openid-configuration',
   // or equivalently: 'https://login.microsoftonline.com/<tenant_guid>/v2.0/.well-known/openid-configuration'
   //
   // or you can use the common endpoint
   // 'https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration'
   // To use the common endpoint, you have to either turn `validateIssuer` off, or provide the `issuer` value.
 
-  // Required, the client ID of your app in AAD  
+  // Required, the client ID of your app in AAD
   clientID: '<your_client_id>',
 
   // Required, must be 'code', 'code id_token', 'id_token code' or 'id_token'
-  // If you want to get access_token, you must use 'code', 'code id_token' or 'id_token code' 
-  responseType: 'code id_token', 
+  // If you want to get access_token, you must use 'code', 'code id_token' or 'id_token code'
+  responseType: 'code id_token',
 
   // Required
-  responseMode: 'form_post', 
+  responseMode: 'form_post',
 
   // Required, the reply URL registered in AAD for your app
-  redirectUrl: 'http://localhost:3000/auth/openid/return', 
+  redirectUrl: 'http://localhost:3000/auth/openid/return',
 
   // Required if we use http for redirectUrl
   allowHttpForRedirectUrl: true,
 
-  // Required if `responseType` is 'code', 'id_token code' or 'code id_token'. 
+  // Required if `responseType` is 'code', 'id_token code' or 'code id_token'.
   // If app key contains '\', replace it with '\\'.
-  clientSecret: '<your_client_secret>', 
+  clientSecret: '<your_client_secret>',
 
   // Required to set to false if you don't want to validate issuer
   validateIssuer: false,
@@ -45,7 +45,7 @@ exports.creds = {
   // Required if `useCookieInsteadOfSession` is set to true. You can provide multiple set of key/iv pairs for key
   // rollover purpose. We always use the first set of key/iv pair to encrypt cookie, but we will try every set of
   // key/iv pair to decrypt cookie. Key can be any string of length 32, and iv can be any string of length 12.
-  cookieEncryptionKeys: [ 
+  cookieEncryptionKeys: [
     { 'key': '12345678901234567890123456789012', 'iv': '123456789012' },
     { 'key': 'abcdefghijklmnopqrstuvwxyzabcdef', 'iv': 'abcdefghijkl' }
   ],
@@ -72,13 +72,14 @@ exports.creds = {
 // The url you need to go to destroy the session with AAD
 exports.destroySessionUrl = 'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=http://localhost:3000';
 
-// If you want to use the mongoDB session store for session middleware, set to true; otherwise we will use the default
+// If you want to use the redis session store for session middleware, set to true; otherwise we will use the default
 // session store provided by express-session.
 // Note that the default session store is designed for development purpose only.
-exports.useMongoDBSessionStore = false;
+exports.useRedisSessionStore = true;
 
-// If you want to use mongoDB, provide the uri here for the database.
-exports.databaseUri = 'mongodb://localhost/OIDCStrategy';
+// If you want to use redis, provide the host and port for the database.
+exports.databaseHost = 'localhost';
+exports.databasePort = 6379;
 
-// How long you want to keep session in mongoDB.
-exports.mongoDBSessionMaxAge = 24 * 60 * 60;  // 1 day (unit is second)
+// How long you want to keep session in redis.
+exports.redisSessionMaxAge = 24 * 60 * 60;  // 1 day (unit is second)
