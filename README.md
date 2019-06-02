@@ -1,4 +1,4 @@
-# Azure Active Directory OIDC Node.js Web Sample
+# Azure Active Directory OIDC Node.js/Redis Web Sample
 
 | [Library](https://github.com/AzureAD/passport-azure-ad) | [Docs](https://aka.ms/aadv2) | [Support](README.md#community-help-and-support) | [Protocol](https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-protocols-oidc)
 | --- | --- | --- | --- |
@@ -57,11 +57,11 @@ Next, clone the sample repo and install the NPM modules.
 
 From your shell or command line:
 
-* `$ git clone git@github.com:AzureADQuickStarts/AppModelv2-WebApp-OpenIDConnect-nodejs.git`
+* `$ git clone git@github.com:matthughes404/Azure-OpenIDConnect-nodejs-redis.git`
 
 or
 
-* `$ git clone https://github.com/AzureADQuickStarts/AppModelv2-WebApp-OpenIDConnect-nodejs.git`
+* `$ git clone https://github.com/matthughes404/Azure-OpenIDConnect-nodejs-redis.git`
 
 
 From the project root directory, run the command:
@@ -82,16 +82,16 @@ Provide the parameters in `exports.creds` in config.js as instructed.
 
 * Update `exports.destroySessionUrl` in config.js, if you want to use a different `post_logout_redirect_uri`.
 
-* Set `exports.useMongoDBSessionStore` in config.js to true, if you want to use use mongoDB or other [compatible session stores](https://github.com/expressjs/session#compatible-session-stores).
+* Set `exports.useRedisSessionStore` in config.js to true, if you want to use use redis or other [compatible session stores](https://github.com/expressjs/session#compatible-session-stores).
 The default session store in this sample is `express-session`. Note that the default session store is not suitable for production.
 
-* Update `exports.databaseUri`, if you want to use mongoDB session store and a different database URI.
+* Update `exports.databaseHost` and `exports.databasePort`, if you want to use redis session store.
 
-* Update `exports.mongoDBSessionMaxAge`. Here you can specify how long you want to keep a session in mongoDB. The unit is second(s).
+* Update `exports.redisSessionMaxAge`. Here you can specify how long you want to keep a session in redis. The unit is second(s).
 
 ## Build and run the application
 
-* Start mongoDB service. If you are using mongoDB session store in this app, you have to [install mongoDB](http://www.mongodb.org/) and start the service first. If you are using the default session store, you can skip this step.
+* Start redis service. If you are using redis session store in this app, you have to [install redis](https://redis.io/) and start the service first. If you are using the default session store, you can skip this step.
 
 * Run the app using the following command from your command line.
 
